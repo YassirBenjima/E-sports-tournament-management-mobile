@@ -1,6 +1,8 @@
 package com.example.e_sports_tournament_management_system
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,6 +40,19 @@ class UsersActivity : AppCompatActivity() {
             .build()
 
         apiService = retrofit.create(ApiService::class.java)
+
+        // Bouton retour vers le Dashboard
+        val btnBack = findViewById<android.widget.ImageButton>(R.id.btnBackDashboard)
+        btnBack.setOnClickListener {
+            finish() // Fermer cette activité pour revenir en arrière (DashboardActivity sera affichée)
+        }
+
+        // Bouton Ajouter Utilisateur
+        val btnAddUser = findViewById<Button>(R.id.btnAddUser)
+        btnAddUser.setOnClickListener {
+            val intent = Intent(this@UsersActivity, AddUserActivity::class.java)
+            startActivity(intent) // Rediriger vers l'activité AddUserActivity
+        }
 
         fetchUsers()
     }

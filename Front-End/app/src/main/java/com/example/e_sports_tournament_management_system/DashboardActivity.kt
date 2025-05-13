@@ -34,11 +34,9 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         val btnUtilisateur = findViewById<Button>(R.id.btnUtilisateur)
-
         btnUtilisateur.setOnClickListener {
             val intent = Intent(this, UsersActivity::class.java)
             startActivity(intent)
         }
-
     }
 }
