@@ -2,7 +2,9 @@ package com.example.e_sports_tournament_management_system.network
 
 import com.example.e_sports_tournament_management_system.model.Game
 import com.example.e_sports_tournament_management_system.model.LoginRequest
+import com.example.e_sports_tournament_management_system.model.Match
 import com.example.e_sports_tournament_management_system.model.Player
+import com.example.e_sports_tournament_management_system.model.Team
 import com.example.e_sports_tournament_management_system.model.User
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -58,6 +60,34 @@ interface ApiService {
 
     @DELETE("/api/players/{id}")
     fun deletePlayer(@Path("id") id: Long): Call<Void>
+
+    // teams :
+
+    @GET("/api/teams")
+    fun getTeams(): Call<List<Team>>
+
+    @POST("/api/teams")
+    fun addTeam(@Body team: Team): Call<Team>
+
+    @PUT("/api/teams/{id}")
+    fun updateTeam(@Path("id") id: Long, @Body team: Team): Call<Team>
+
+    @DELETE("/api/teams/{id}")
+    fun deleteTeam(@Path("id") id: Long): Call<Void>
+
+    // matches :
+
+    @GET("/api/matches")
+    fun getMatches(): Call<List<Match>>
+
+    @POST("/api/matches")
+    fun addMatch(@Body match: Match): Call<Match>
+
+    @PUT("/api/matches/{id}")
+    fun updateMatch(@Path("id") id: Long, @Body match: Match): Call<Match>
+
+    @DELETE("/api/matches/{id}")
+    fun deleteMatch(@Path("id") id: Long): Call<Void>
 
 
 

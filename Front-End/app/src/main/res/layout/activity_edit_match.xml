@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3C3C3C"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <ImageButton
+            android:id="@+id/btnBackDashboard"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Retour"
+            app:tint="#FFFFFF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Modifier un Match"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editTextMatchTeam1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Équipe 1"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edit_text_background"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/editTextMatchTeam2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Équipe 2"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edit_text_background"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/editTextMatchResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Résultat (ex: 2 - 1)"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edit_text_background"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Modifier"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#dc161f" />
+</LinearLayout>
