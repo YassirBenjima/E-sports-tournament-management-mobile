@@ -2,6 +2,7 @@ package com.example.e_sports_tournament_management_system.network
 
 import com.example.e_sports_tournament_management_system.model.Game
 import com.example.e_sports_tournament_management_system.model.LoginRequest
+import com.example.e_sports_tournament_management_system.model.Player
 import com.example.e_sports_tournament_management_system.model.User
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -43,6 +44,20 @@ interface ApiService {
 
     @DELETE("/api/games/{id}")
     fun deleteGame(@Path("id") id: Long): Call<Void>
+
+    // players :
+
+    @GET("/api/players")
+    fun getPlayers(): Call<List<Player>>
+
+    @POST("/api/players")
+    fun addPlayer(@Body player: Player): Call<Player>
+
+    @PUT("/api/players/{id}")
+    fun updatePlayer(@Path("id") id: Long, @Body player: Player): Call<Player>
+
+    @DELETE("/api/players/{id}")
+    fun deletePlayer(@Path("id") id: Long): Call<Void>
 
 
 

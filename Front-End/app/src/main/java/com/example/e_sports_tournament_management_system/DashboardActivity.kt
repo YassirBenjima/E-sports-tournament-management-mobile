@@ -43,6 +43,12 @@ class DashboardActivity : AppCompatActivity() {
             val intent = Intent(this@DashboardActivity, GamesActivity::class.java)
             startActivity(intent)
         }
+        val btnPlayers = findViewById<Button>(R.id.btnPlayers)
+        btnPlayers.setOnClickListener {
+            val intent = Intent(this@DashboardActivity, PlayersActivity::class.java)
+            startActivity(intent)
+        }
+
 
 
     }
