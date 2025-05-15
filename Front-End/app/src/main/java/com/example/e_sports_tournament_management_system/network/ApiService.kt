@@ -68,6 +68,13 @@ interface ApiService {
     @DELETE("/api/players/{id}")
     fun deletePlayer(@Path("id") id: Long): Call<Void>
 
+    @Multipart
+    @POST("/api/players/{id}/upload-image")
+    fun uploadPlayerImage(
+        @Path("id") id: Long,
+        @Part file: MultipartBody.Part
+    ): Call<ResponseBody>
+
     // teams :
 
     @GET("/api/teams")

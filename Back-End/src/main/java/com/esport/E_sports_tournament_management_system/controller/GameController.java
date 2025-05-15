@@ -40,17 +40,15 @@ public class GameController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game updatedGame) {
-        return gameService.getGameById(id)
-                .map(existingGame -> {
-                    existingGame.setName(updatedGame.getName());
-                    existingGame.setPlatform(updatedGame.getPlatform());
-                    Game savedGame = gameService.saveGame(existingGame);
-                    return ResponseEntity.ok(savedGame);
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game game) {
+        return ResponseEntity.ok(gameService.updateGame(id, game));
     }
 
+    @PostMapping("/{id}/upload-image")
+    public ResponseEntity<String> uploadImage(@PathVariable Long id, @RequestParam("image") MultipartFile file) {
+        String imageUrl = gameService.uploadGameImage(id, file);
+        return ResponseEntity.ok(imageUrl);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGame(@PathVariable Long id) {
