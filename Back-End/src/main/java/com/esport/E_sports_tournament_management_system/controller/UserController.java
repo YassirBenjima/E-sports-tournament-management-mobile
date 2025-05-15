@@ -1,6 +1,7 @@
 package com.esport.E_sports_tournament_management_system.controller;
 
 import com.esport.E_sports_tournament_management_system.model.User;
+import com.esport.E_sports_tournament_management_system.repository.UserRepository;
 import com.esport.E_sports_tournament_management_system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,10 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Autowired
     public UserController(UserService userService) {
@@ -46,4 +51,18 @@ public class UserController {
         Optional<User> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setUsername(updatedUser.getUsername());
+                    user.setEmail(updatedUser.getEmail());
+                    user.setFullName(updatedUser.getFullName());
+                    user.setPassword(updatedUser.getPassword());
+                    userRepository.save(user);
+                    return ResponseEntity.ok(user);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }

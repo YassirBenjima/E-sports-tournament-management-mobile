@@ -62,15 +62,42 @@ class UsersActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 if (response.isSuccessful) {
                     val users = response.body() ?: emptyList()
-                    recyclerView.adapter = UserAdapter(users)
-                } else {
-                    Toast.makeText(this@UsersActivity, "Erreur: ${response.message()}", Toast.LENGTH_LONG).show()
+                    recyclerView.adapter = UserAdapter(users,
+                        onEdit = { user ->
+                            val intent = Intent(this@UsersActivity, EditUserActivity::class.java)
+                            intent.putExtra("USER_ID", user.id)
+                            intent.putExtra("USERNAME", user.username)
+                            intent.putExtra("FULLNAME", user.fullName)
+                            intent.putExtra("EMAIL", user.email)
+                            intent.putExtra("PASSWORD", user.password)
+                            startActivity(intent)
+                        },
+                        onDelete = { user ->
+                            apiService.deleteUser(user.id!!).enqueue(object : Callback<Void> {
+                                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                    Toast.makeText(this@UsersActivity, "Supprimé", Toast.LENGTH_SHORT).show()
+                                    fetchUsers()
+                                }
+
+                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                                    Toast.makeText(this@UsersActivity, "Erreur suppression", Toast.LENGTH_SHORT).show()
+                                }
+                            })
+                        }
+                    )
                 }
             }
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 Toast.makeText(this@UsersActivity, "Échec : ${t.message}", Toast.LENGTH_LONG).show()
             }
+
         })
     }
+    override fun onResume() {
+        super.onResume()
+        fetchUsers() // Recharge la liste à chaque retour sur cette activité
+    }
+
+
 }

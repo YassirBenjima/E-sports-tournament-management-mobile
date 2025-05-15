@@ -46,7 +46,6 @@ class AddUserActivity : AppCompatActivity() {
 
             if (username.isNotEmpty() && fullName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
                 val newUser = User(
-                    id = 0, // L'id sera généré par le backend
                     username = username,
                     password = password,
                     fullName = fullName,
@@ -60,6 +59,7 @@ class AddUserActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             Log.d("AddUserActivity", "Utilisateur ajouté : ${response.body()}")
                             Toast.makeText(this@AddUserActivity, "Utilisateur ajouté avec succès!", Toast.LENGTH_SHORT).show()
+                            finish()
                         } else {
                             // Log des erreurs côté serveur
                             Log.e("AddUserActivity", "Erreur de serveur : ${response.errorBody()?.string()}")

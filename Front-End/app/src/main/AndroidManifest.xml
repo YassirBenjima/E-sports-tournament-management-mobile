@@ -24,6 +24,8 @@
         <activity android:name=".DashboardActivity" />
         <activity android:name=".UsersActivity" />
         <activity android:name=".AddUserActivity" />
+        <activity android:name=".EditUserActivity" />
+
     </application>
 
 </manifest>
