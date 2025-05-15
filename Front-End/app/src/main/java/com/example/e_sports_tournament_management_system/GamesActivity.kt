@@ -28,33 +28,29 @@ class GamesActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerGames)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Retrofit setup
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-
-        val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val client = OkHttpClient.Builder().addInterceptor(logging).build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080") // Remplace si besoin par l’IP locale ou ngrok
+            .baseUrl("http://10.0.2.2:8080")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         apiService = retrofit.create(ApiService::class.java)
 
-        // Retour vers le dashboard
-        val btnBack = findViewById<ImageButton>(R.id.btnBackDashboard)
-        btnBack.setOnClickListener {
-            finish()
+        findViewById<ImageButton>(R.id.btnBackDashboard).setOnClickListener { finish() }
+
+        findViewById<Button>(R.id.btnAddGame).setOnClickListener {
+            startActivity(Intent(this, AddGameActivity::class.java))
         }
 
-        // Aller vers la page d'ajout de jeu
-        val btnAddGame = findViewById<Button>(R.id.btnAddGame)
-        btnAddGame.setOnClickListener {
-            val intent = Intent(this@GamesActivity, AddGameActivity::class.java)
-            startActivity(intent)
-        }
+        fetchGames()
+    }
 
+    override fun onResume() {
+        super.onResume()
         fetchGames()
     }
 
@@ -63,14 +59,37 @@ class GamesActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Game>>, response: Response<List<Game>>) {
                 if (response.isSuccessful) {
                     val games = response.body() ?: emptyList()
-                    recyclerView.adapter = GameAdapter(games)
-                } else {
-                    Toast.makeText(this@GamesActivity, "Erreur: ${response.message()}", Toast.LENGTH_LONG).show()
+                    recyclerView.adapter = GameAdapter(games,
+                        onEdit = { game ->
+                            if (game.id == null) {
+                                Toast.makeText(this@GamesActivity, "ID du jeu invalide", Toast.LENGTH_SHORT).show()
+
+                            }
+                            val intent = Intent(this@GamesActivity, EditGameActivity::class.java)
+                            intent.putExtra("GAME_ID", game.id)
+                            intent.putExtra("GAME_NAME", game.name)
+                            intent.putExtra("GAME_PLATFORM", game.platform)
+                            startActivity(intent)
+                        }
+                        ,
+                        onDelete = { game ->
+                            apiService.deleteGame(game.id!!).enqueue(object : Callback<Void> {
+                                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                    Toast.makeText(this@GamesActivity, "Jeu supprimé", Toast.LENGTH_SHORT).show()
+                                    fetchGames()
+                                }
+
+                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                                    Toast.makeText(this@GamesActivity, "Erreur suppression", Toast.LENGTH_SHORT).show()
+                                }
+                            })
+                        }
+                    )
                 }
             }
 
             override fun onFailure(call: Call<List<Game>>, t: Throwable) {
-                Toast.makeText(this@GamesActivity, "Échec : ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@GamesActivity, "Erreur: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }

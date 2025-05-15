@@ -22,9 +22,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".DashboardActivity" />
+        <!-- 🔽 Activités de gestion des utilisateurs -->
         <activity android:name=".UsersActivity" />
         <activity android:name=".AddUserActivity" />
         <activity android:name=".EditUserActivity" />
+        <!-- 🔽 Activités de gestion des jeux -->
+        <activity android:name=".GamesActivity" />
+        <activity android:name=".AddGameActivity" />
+        <activity android:name=".EditGameActivity" />
+
 
     </application>
 

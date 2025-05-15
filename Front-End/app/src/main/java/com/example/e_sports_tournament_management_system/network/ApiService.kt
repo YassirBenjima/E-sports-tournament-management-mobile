@@ -32,10 +32,18 @@ interface ApiService {
 
 
     // games :
+    @GET("/api/games")
+    fun getGames(): Call<List<Game>>
+
     @POST("/api/games")
     fun addGame(@Body game: Game): Call<Game>
 
-    @GET("/api/games")
-    fun getGames(): Call<List<Game>>
+    @PUT("/api/games/{id}")
+    fun updateGame(@Path("id") id: Long, @Body game: Game): Call<Game>
+
+    @DELETE("/api/games/{id}")
+    fun deleteGame(@Path("id") id: Long): Call<Void>
+
+
 
 }

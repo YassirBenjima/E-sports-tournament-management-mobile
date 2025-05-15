@@ -33,11 +33,6 @@ public class GameService {
         gameRepository.deleteById(gameId);
     }
 
-    // Trouver un jeu par ID
-    public Optional<Game> getGameById(Long gameId) {
-        return gameRepository.findById(gameId);
-    }
-
     // Mettre à jour un jeu
     public Game updateGame(Long id, Game updatedGame) {
         return gameRepository.findById(id)
@@ -48,4 +43,12 @@ public class GameService {
                 })
                 .orElseThrow(() -> new RuntimeException("Game not found with id: " + id));
     }
+    public Optional<Game> getGameById(Long id) {
+        return gameRepository.findById(id);
+    }
+
+    public Game saveGame(Game game) {
+        return gameRepository.save(game);
+    }
+
 }
