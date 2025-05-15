@@ -31,6 +31,20 @@
         <activity android:name=".GamesActivity" />
         <activity android:name=".AddGameActivity" />
         <activity android:name=".EditGameActivity" />
+        <!-- 🔽 Activités de gestion des Joueurs -->
+        <activity android:name=".PlayersActivity" />
+        <activity android:name=".AddPlayerActivity" />
+        <activity android:name=".EditPlayerActivity" />
+        <!-- 🔽 Activités de gestion des Equipes -->
+        <activity android:name=".TeamsActivity" />
+        <activity android:name=".AddTeamActivity" />
+        <activity android:name=".EditTeamActivity" />
+        <!-- 🔽 Activités de gestion des Matches -->
+        <activity android:name=".MatchesActivity" />
+        <activity android:name=".AddMatchActivity" />
+        <activity android:name=".EditMatchActivity" />
+
+
 
 
     </application>

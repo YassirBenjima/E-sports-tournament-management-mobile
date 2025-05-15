@@ -2,6 +2,9 @@ package com.example.e_sports_tournament_management_system.network
 
 import com.example.e_sports_tournament_management_system.model.Game
 import com.example.e_sports_tournament_management_system.model.LoginRequest
+import com.example.e_sports_tournament_management_system.model.Match
+import com.example.e_sports_tournament_management_system.model.Player
+import com.example.e_sports_tournament_management_system.model.Team
 import com.example.e_sports_tournament_management_system.model.User
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -50,6 +53,48 @@ interface ApiService {
 
     @DELETE("/api/games/{id}")
     fun deleteGame(@Path("id") id: Long): Call<Void>
+
+    // players :
+
+    @GET("/api/players")
+    fun getPlayers(): Call<List<Player>>
+
+    @POST("/api/players")
+    fun addPlayer(@Body player: Player): Call<Player>
+
+    @PUT("/api/players/{id}")
+    fun updatePlayer(@Path("id") id: Long, @Body player: Player): Call<Player>
+
+    @DELETE("/api/players/{id}")
+    fun deletePlayer(@Path("id") id: Long): Call<Void>
+
+    // teams :
+
+    @GET("/api/teams")
+    fun getTeams(): Call<List<Team>>
+
+    @POST("/api/teams")
+    fun addTeam(@Body team: Team): Call<Team>
+
+    @PUT("/api/teams/{id}")
+    fun updateTeam(@Path("id") id: Long, @Body team: Team): Call<Team>
+
+    @DELETE("/api/teams/{id}")
+    fun deleteTeam(@Path("id") id: Long): Call<Void>
+
+    // matches :
+
+    @GET("/api/matches")
+    fun getMatches(): Call<List<Match>>
+
+    @POST("/api/matches")
+    fun addMatch(@Body match: Match): Call<Match>
+
+    @PUT("/api/matches/{id}")
+    fun updateMatch(@Path("id") id: Long, @Body match: Match): Call<Match>
+
+    @DELETE("/api/matches/{id}")
+    fun deleteMatch(@Path("id") id: Long): Call<Void>
 
 
 
