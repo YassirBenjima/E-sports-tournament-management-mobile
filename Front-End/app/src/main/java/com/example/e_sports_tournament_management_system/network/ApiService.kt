@@ -6,13 +6,16 @@ import com.example.e_sports_tournament_management_system.model.Match
 import com.example.e_sports_tournament_management_system.model.Player
 import com.example.e_sports_tournament_management_system.model.Team
 import com.example.e_sports_tournament_management_system.model.User
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.POST
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
@@ -35,6 +38,10 @@ interface ApiService {
 
 
     // games :
+    @Multipart
+    @POST("/api/upload")
+    fun uploadImage(@Part image: MultipartBody.Part): Call<ResponseBody>
+
     @GET("/api/games")
     fun getGames(): Call<List<Game>>
 
@@ -60,6 +67,13 @@ interface ApiService {
 
     @DELETE("/api/players/{id}")
     fun deletePlayer(@Path("id") id: Long): Call<Void>
+
+    @Multipart
+    @POST("/api/players/{id}/upload-image")
+    fun uploadPlayerImage(
+        @Path("id") id: Long,
+        @Part file: MultipartBody.Part
+    ): Call<ResponseBody>
 
     // teams :
 

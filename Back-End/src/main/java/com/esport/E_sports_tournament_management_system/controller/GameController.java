@@ -4,9 +4,13 @@ import com.esport.E_sports_tournament_management_system.model.Game;
 import com.esport.E_sports_tournament_management_system.repository.GameRepository;
 import com.esport.E_sports_tournament_management_system.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -36,17 +40,15 @@ public class GameController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game updatedGame) {
-        return gameService.getGameById(id)
-                .map(existingGame -> {
-                    existingGame.setName(updatedGame.getName());
-                    existingGame.setPlatform(updatedGame.getPlatform());
-                    Game savedGame = gameService.saveGame(existingGame);
-                    return ResponseEntity.ok(savedGame);
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game game) {
+        return ResponseEntity.ok(gameService.updateGame(id, game));
     }
 
+    @PostMapping("/{id}/upload-image")
+    public ResponseEntity<String> uploadImage(@PathVariable Long id, @RequestParam("image") MultipartFile file) {
+        String imageUrl = gameService.uploadGameImage(id, file);
+        return ResponseEntity.ok(imageUrl);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGame(@PathVariable Long id) {
@@ -57,6 +59,4 @@ public class GameController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 }

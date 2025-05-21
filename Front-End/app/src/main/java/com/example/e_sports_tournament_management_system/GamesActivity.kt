@@ -1,5 +1,6 @@
 package com.example.e_sports_tournament_management_system
 
+import GameAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -8,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.e_sports_tournament_management_system.adapter.GameAdapter
 import com.example.e_sports_tournament_management_system.model.Game
 import com.example.e_sports_tournament_management_system.network.ApiService
 import okhttp3.OkHttpClient

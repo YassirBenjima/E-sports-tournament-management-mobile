@@ -64,6 +64,27 @@
         android:background="@drawable/edit_text_background"
         android:textColor="@color/black" />
 
+    <!-- Bouton sélectionner image -->
+    <Button
+        android:id="@+id/btnSelectImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sélectionner une image"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#666666"
+        android:textColor="#FFFFFF" />
+
+    <!-- Aperçu de l'image sélectionnée -->
+    <ImageView
+        android:id="@+id/imagePreview"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
+
+
     <!-- Bouton soumettre -->
     <Button
         android:id="@+id/btnSubmit"

@@ -9,6 +9,17 @@
     android:layout_marginBottom="8dp"
     android:gravity="center_vertical">
 
+    <!-- ✅ Image du joueur (ajouté) -->
+    <ImageView
+        android:id="@+id/imagePlayer"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/player_image"
+        android:layout_marginEnd="12dp"
+        android:background="#222222" />  <!-- optionnel pour encadrer la zone -->
+
+    <!-- Infos du joueur -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -28,11 +39,12 @@
             android:id="@+id/textPlayerNationality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="email@example.com"
+            android:text="Nationalité"
             android:textColor="#CCCCCC"
             android:textSize="14sp" />
     </LinearLayout>
 
+    <!-- Bouton Éditer -->
     <ImageButton
         android:id="@+id/btnEdit"
         android:layout_width="40dp"
@@ -43,6 +55,7 @@
         android:contentDescription="Modifier"
         app:tint="#CCCCCC" />
 
+    <!-- Bouton Supprimer -->
     <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="40dp"
@@ -51,4 +64,5 @@
         android:src="@drawable/ic_delete"
         android:contentDescription="Supprimer"
         app:tint="#CCCCCC" />
+
 </LinearLayout>
