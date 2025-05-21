@@ -25,11 +25,19 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textMatchResult"
+            android:id="@+id/textMatchScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Résultat"
+            android:text="Score : 2 - 1"
             android:textColor="#CCCCCC"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textMatchWinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vainqueur : Team A"
+            android:textColor="#AAAAAA"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -52,3 +60,4 @@
         android:contentDescription="Supprimer"
         app:tint="#CCCCCC" />
 </LinearLayout>
+

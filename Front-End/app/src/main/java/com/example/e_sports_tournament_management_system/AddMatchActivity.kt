@@ -1,25 +1,33 @@
 package com.example.e_sports_tournament_management_system
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-
 import com.example.e_sports_tournament_management_system.model.Match
+import com.example.e_sports_tournament_management_system.model.MatchResult
+import com.example.e_sports_tournament_management_system.model.Team
 import com.example.e_sports_tournament_management_system.network.ApiService
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
+import android.util.Log
+
 
 class AddMatchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            Log.e("CrashHandler", "💥 Exception : ${throwable.message}", throwable)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_match)
 
+        Toast.makeText(this, "🟢 AddMatchActivity ouverte", Toast.LENGTH_SHORT).show()
+        Log.d("AddMatchActivity", "🟢 onCreate exécuté")
+
         val team1Field = findViewById<EditText>(R.id.editTextMatchTeam1)
         val team2Field = findViewById<EditText>(R.id.editTextMatchTeam2)
-        val resultField = findViewById<EditText>(R.id.editTextMatchResult)
+        val scoreAField = findViewById<EditText>(R.id.editTextScoreA)
+        val scoreBField = findViewById<EditText>(R.id.editTextScoreB)
+        val winnerField = findViewById<EditText>(R.id.editTextWinnerName)
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
         val btnBack = findViewById<ImageButton>(R.id.btnBackDashboard)
 
@@ -31,31 +39,51 @@ class AddMatchActivity : AppCompatActivity() {
         val apiService = retrofit.create(ApiService::class.java)
 
         btnBack.setOnClickListener { finish() }
-
+        Log.d("AddMatchActivity", "→ Bouton 'Ajouter' cliqué")
         btnSubmit.setOnClickListener {
             val team1 = team1Field.text.toString().trim()
             val team2 = team2Field.text.toString().trim()
-            val result = resultField.text.toString().trim()
+            val scoreA = scoreAField.text.toString().toIntOrNull()
+            val scoreB = scoreBField.text.toString().toIntOrNull()
+            val winner = winnerField.text.toString().trim()
 
-            if (team1.isEmpty() || team2.isEmpty() || result.isEmpty()) {
-                Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show()
+            if (team1.isEmpty() || team2.isEmpty() || scoreA == null || scoreB == null || winner.isEmpty()) {
+                Toast.makeText(this, "Tous les champs sont requis", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val newMatch = Match(team1 = team1, team2 = team2, result = result)
+            val newMatch = Match(
+                team1 = Team(name = team1, country = "", logoUrl = null),
+                team2 = Team(name = team2, country = "", logoUrl = null),
+                result = MatchResult(
+                    teamAScore = scoreA,
+                    teamBScore = scoreB,
+                    winner = Team(name = winner, country = "", logoUrl = null)
+                )
+            )
 
             apiService.addMatch(newMatch).enqueue(object : Callback<Match> {
                 override fun onResponse(call: Call<Match>, response: Response<Match>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(this@AddMatchActivity, "Match ajouté", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@AddMatchActivity, "✅ Match ajouté", Toast.LENGTH_SHORT).show()
                         finish()
                     } else {
-                        Toast.makeText(this@AddMatchActivity, "Erreur: ${response.message()}", Toast.LENGTH_SHORT).show()
+                        // 🔽 Montre le message exact d’erreur HTTP (comme 400/500)
+                        Toast.makeText(
+                            this@AddMatchActivity,
+                            "❌ Erreur: ${response.code()} - ${response.message()}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<Match>, t: Throwable) {
-                    Toast.makeText(this@AddMatchActivity, "Échec: ${t.message}", Toast.LENGTH_SHORT).show()
+                    // 🔽 Affiche l’erreur de réseau (timeout, no route, etc.)
+                    Toast.makeText(
+                        this@AddMatchActivity,
+                        "⛔ Échec réseau: ${t.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             })
         }

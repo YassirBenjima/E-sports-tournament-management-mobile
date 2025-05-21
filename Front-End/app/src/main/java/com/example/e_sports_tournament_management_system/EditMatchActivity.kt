@@ -1,13 +1,11 @@
 package com.example.e_sports_tournament_management_system
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-
 import com.example.e_sports_tournament_management_system.model.Match
+import com.example.e_sports_tournament_management_system.model.MatchResult
+import com.example.e_sports_tournament_management_system.model.Team
 import com.example.e_sports_tournament_management_system.network.ApiService
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,14 +20,26 @@ class EditMatchActivity : AppCompatActivity() {
 
         val team1Field = findViewById<EditText>(R.id.editTextMatchTeam1)
         val team2Field = findViewById<EditText>(R.id.editTextMatchTeam2)
-        val resultField = findViewById<EditText>(R.id.editTextMatchResult)
+        val scoreAField = findViewById<EditText>(R.id.editTextScoreA)
+        val scoreBField = findViewById<EditText>(R.id.editTextScoreB)
+        val winnerField = findViewById<EditText>(R.id.editTextWinnerName)
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
         val btnBack = findViewById<ImageButton>(R.id.btnBackDashboard)
 
+        // Récupération des données transmises via Intent
         matchId = intent.getLongExtra("MATCH_ID", -1)
-        team1Field.setText(intent.getStringExtra("MATCH_TEAM1"))
-        team2Field.setText(intent.getStringExtra("MATCH_TEAM2"))
-        resultField.setText(intent.getStringExtra("MATCH_RESULT"))
+        val team1Name = intent.getStringExtra("TEAM1_NAME") ?: ""
+        val team2Name = intent.getStringExtra("TEAM2_NAME") ?: ""
+        val teamAScore = intent.getIntExtra("TEAM1_SCORE", 0)
+        val teamBScore = intent.getIntExtra("TEAM2_SCORE", 0)
+        val winnerName = intent.getStringExtra("WINNER_NAME") ?: ""
+
+        // Pré-remplir les champs
+        team1Field.setText(team1Name)
+        team2Field.setText(team2Name)
+        scoreAField.setText(teamAScore.toString())
+        scoreBField.setText(teamBScore.toString())
+        winnerField.setText(winnerName)
 
         btnSubmit.text = "Mettre à jour"
 
@@ -43,14 +53,25 @@ class EditMatchActivity : AppCompatActivity() {
         btnSubmit.setOnClickListener {
             val team1 = team1Field.text.toString().trim()
             val team2 = team2Field.text.toString().trim()
-            val result = resultField.text.toString().trim()
+            val scoreA = scoreAField.text.toString().toIntOrNull()
+            val scoreB = scoreBField.text.toString().toIntOrNull()
+            val winner = winnerField.text.toString().trim()
 
-            if (team1.isEmpty() || team2.isEmpty() || result.isEmpty()) {
-                Toast.makeText(this, "Champs requis", Toast.LENGTH_SHORT).show()
+            if (team1.isEmpty() || team2.isEmpty() || scoreA == null || scoreB == null || winner.isEmpty()) {
+                Toast.makeText(this, "Tous les champs sont requis", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val updatedMatch = Match(id = matchId, team1 = team1, team2 = team2, result = result)
+            val updatedMatch = Match(
+                id = matchId,
+                team1 = Team(name = team1, country = "", logoUrl = null),
+                team2 = Team(name = team2, country = "", logoUrl = null),
+                result = MatchResult(
+                    teamAScore = scoreA,
+                    teamBScore = scoreB,
+                    winner = Team(name = winner, country = "", logoUrl = null)
+                )
+            )
 
             apiService.updateMatch(matchId, updatedMatch).enqueue(object : Callback<Match> {
                 override fun onResponse(call: Call<Match>, response: Response<Match>) {

@@ -89,6 +89,21 @@ interface ApiService {
     @DELETE("/api/matches/{id}")
     fun deleteMatch(@Path("id") id: Long): Call<Void>
 
+    // matche result :
+
+    @GET("/api/match-results")
+    fun getMatchResults(): Call<List<MatchResult>>
+
+    @POST("/api/match-results")
+    fun addMatchResult(@Body result: MatchResult): Call<MatchResult>
+
+    @PUT("/api/match-results/{id}")
+    fun updateMatchResult(@Path("id") id: Long, @Body result: MatchResult): Call<MatchResult>
+
+    @DELETE("/api/match-results/{id}")
+    fun deleteMatchResult(@Path("id") id: Long): Call<Void>
+
+
 
 
 }

@@ -52,13 +52,34 @@
         android:textColor="@color/black" />
 
     <EditText
-        android:id="@+id/editTextMatchResult"
+        android:id="@+id/editTextScoreA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Résultat (ex: 2 - 1)"
+        android:hint="Score Équipe 1"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edit_text_background"
+        android:textColor="@color/black"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editTextScoreB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Score Équipe 2"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edit_text_background"
+        android:textColor="@color/black"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editTextWinnerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nom du gagnant"
         android:layout_marginBottom="16dp"
         android:background="@drawable/edit_text_background"
         android:textColor="@color/black" />
+
 
     <Button
         android:id="@+id/btnSubmit"
@@ -67,4 +88,6 @@
         android:text="Modifier"
         android:textColor="#FFFFFF"
         android:backgroundTint="#dc161f" />
+
+
 </LinearLayout>

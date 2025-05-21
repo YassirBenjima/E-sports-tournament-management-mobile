@@ -64,11 +64,14 @@ class MatchesActivity : AppCompatActivity() {
                         onEdit = { match ->
                             val intent = Intent(this@MatchesActivity, EditMatchActivity::class.java)
                             intent.putExtra("MATCH_ID", match.id)
-                            intent.putExtra("MATCH_TEAM1", match.team1)
-                            intent.putExtra("MATCH_TEAM2", match.team2)
-                            intent.putExtra("MATCH_RESULT", match.result)
+                            intent.putExtra("TEAM1_NAME", match.team1.name)
+                            intent.putExtra("TEAM2_NAME", match.team2.name)
+                            intent.putExtra("TEAM1_SCORE", match.result?.teamAScore ?: 0)
+                            intent.putExtra("TEAM2_SCORE", match.result?.teamBScore ?: 0)
+                            intent.putExtra("WINNER_NAME", match.result?.winner?.name ?: "")
                             startActivity(intent)
-                        },
+                        }
+                        ,
                         onDelete = { match ->
                             apiService.deleteMatch(match.id!!).enqueue(object : Callback<Void> {
                                 override fun onResponse(call: Call<Void>, response: Response<Void>) {

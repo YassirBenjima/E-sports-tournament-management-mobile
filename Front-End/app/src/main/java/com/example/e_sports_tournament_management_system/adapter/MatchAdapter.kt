@@ -17,7 +17,8 @@ class MatchAdapter(
 
     class MatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textMatchTeams: TextView = itemView.findViewById(R.id.textMatchTeams)
-        val textMatchResult: TextView = itemView.findViewById(R.id.textMatchResult)
+        val textMatchScore: TextView = itemView.findViewById(R.id.textMatchScore)
+        val textMatchWinner: TextView = itemView.findViewById(R.id.textMatchWinner)
         val btnEdit: ImageButton = itemView.findViewById(R.id.btnEdit)
         val btnDelete: ImageButton = itemView.findViewById(R.id.btnDelete)
     }
@@ -29,8 +30,9 @@ class MatchAdapter(
 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
         val match = matchList[position]
-        holder.textMatchTeams.text = "${match.team1} vs ${match.team2}"
-        holder.textMatchResult.text = "Résultat : ${match.result}"
+        holder.textMatchTeams.text = "${match.team1.name} vs ${match.team2.name}"
+        holder.textMatchScore.text = "Score : ${match.result?.teamAScore ?: "-"} - ${match.result?.teamBScore ?: "-"}"
+        holder.textMatchWinner.text = "Vainqueur : ${match.result?.winner?.name ?: "Indéfini"}"
 
         holder.btnEdit.setOnClickListener { onEdit(match) }
         holder.btnDelete.setOnClickListener { onDelete(match) }

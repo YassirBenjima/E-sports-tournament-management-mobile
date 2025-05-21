@@ -13,8 +13,8 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne
-//    private Tournament tournament;
+    @ManyToOne
+    private Tournament tournament;
 
     @ManyToOne
     private Team team1;
@@ -27,27 +27,27 @@ public class Match {
     private Date matchDate;
 
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "match_result_id", referencedColumnName = "id" , nullable = true )
-//    private MatchResult result;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "match_result_id", referencedColumnName = "id" , nullable = true )
+    private MatchResult result;
 
 
     public Match() {}
 
-//    public Match(Tournament tournament, Team teamA, Team teamB, MatchResult result) {
-//        this.tournament = tournament;
-//        this.teamA = teamA;
-//        this.teamB = teamB;
-//        this.result = result;
-//    }
+    public Match(Tournament tournament, Team team1, Team team2, MatchResult result) {
+        this.tournament = tournament;
+        this.team1 = team1;
+        this.team2 = team2;
+        this.result = result;
+    }
 
     public Long getId() {
         return id;
     }
 
-//    public Tournament getTournament() {
-//        return tournament;
-//    }
+    public Tournament getTournament() {
+        return tournament;
+    }
 
     public Team getTeam1() {
         return team1;
@@ -57,9 +57,9 @@ public class Match {
         return team2;
     }
 
-//    public MatchResult getResult() {
-//        return result;
-//    }
+    public MatchResult getResult() {
+        return result;
+    }
 
     public Date getMatchDate() {
         return matchDate;
@@ -70,9 +70,9 @@ public class Match {
         this.id = id;
     }
 
-//    public void setTournament(Tournament tournament) {
-//        this.tournament = tournament;
-//    }
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
 
     public void setTeam1(Team teamA) {
         this.team1 = teamA;
@@ -82,9 +82,9 @@ public class Match {
         this.team2 = teamB;
     }
 
-//    public void setResult(MatchResult result) {
-//        this.result = result;
-//    }
+    public void setResult(MatchResult result) {
+        this.result = result;
+    }
 
     public void setMatchDate(Date matchDate) {
         this.matchDate = matchDate;
