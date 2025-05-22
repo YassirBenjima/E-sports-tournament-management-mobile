@@ -27,7 +27,7 @@ public class Tournament {
 
 
 
-    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Match> matches = new ArrayList<>();
 
     @ManyToOne

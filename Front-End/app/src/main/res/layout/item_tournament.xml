@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_background">
+
+    <TextView
+        android:id="@+id/textTournamentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom du tournoi"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textTournamentDates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dates"
+        android:textColor="#CCCCCC" />
+
+    <TextView
+        android:id="@+id/textTournamentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lieu"
+        android:textColor="#CCCCCC" />
+</LinearLayout>

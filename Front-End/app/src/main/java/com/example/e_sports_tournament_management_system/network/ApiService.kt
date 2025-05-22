@@ -5,6 +5,7 @@ import com.example.e_sports_tournament_management_system.model.LoginRequest
 import com.example.e_sports_tournament_management_system.model.Match
 import com.example.e_sports_tournament_management_system.model.Player
 import com.example.e_sports_tournament_management_system.model.Team
+import com.example.e_sports_tournament_management_system.model.Tournament
 import com.example.e_sports_tournament_management_system.model.User
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -117,7 +118,23 @@ interface ApiService {
     @DELETE("/api/match-results/{id}")
     fun deleteMatchResult(@Path("id") id: Long): Call<Void>
 
+    // Tournaments :
 
+    @GET("/api/tournaments")
+    fun getTournaments(): Call<List<Tournament>>
+
+    @GET("/api/tournaments/{id}")
+    fun getTournamentById(@Path("id") id: Long): Call<Tournament>
+
+    @POST("/api/tournaments")
+    fun addTournament(@Body tournament: Tournament): Call<Tournament>
+
+    @DELETE("/api/tournaments/{id}")
+    fun deleteTournament(@Path("id") id: Long): Call<Void>
+
+    @PUT("/api/tournaments/{id}")
+    fun updateTournament(@Path("id") id: Long, @Body tournament: Tournament): Call<Tournament>
 
 
 }
+

@@ -7,5 +7,7 @@ data class Match(
     val id: Long? = null,
     val team1: Team,
     val team2: Team,
-    val result: MatchResult?
+    val result: MatchResult?,
+    val tournament: Tournament? = null
+
 )
