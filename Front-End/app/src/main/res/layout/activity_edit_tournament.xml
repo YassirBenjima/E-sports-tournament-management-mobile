@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3C3C3C"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btnBackDashboard"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Retour"
+            app:tint="#FFFFFF" />
+
+        <EditText
+            android:id="@+id/editTextTournamentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nom"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text_background" />
+
+        <EditText
+            android:id="@+id/editTextLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lieu"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text_background" />
+
+        <EditText
+            android:id="@+id/editTextStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date de début (yyyy-MM-dd)"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text_background" />
+
+        <EditText
+            android:id="@+id/editTextEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date de fin (yyyy-MM-dd)"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text_background" />
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mettre à jour"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#dc161f" />
+    </LinearLayout>
+</ScrollView>

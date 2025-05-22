@@ -46,7 +46,7 @@
         <!-- 🔽 Activités de gestion des Tournois -->
         <activity android:name=".TournamentsActivity" />
         <activity android:name=".AddTournamentActivity" />
-<!--        <activity android:name=".EditTournamentActivity" />-->
+        <activity android:name=".EditTournamentActivity" />
         <activity android:name=".TournamentDetailsActivity" />
 
 

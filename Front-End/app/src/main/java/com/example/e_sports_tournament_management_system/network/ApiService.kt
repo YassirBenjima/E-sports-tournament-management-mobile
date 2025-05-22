@@ -135,6 +135,8 @@ interface ApiService {
     @PUT("/api/tournaments/{id}")
     fun updateTournament(@Path("id") id: Long, @Body tournament: Tournament): Call<Tournament>
 
+    @POST("/api/tournaments/{id}/matches")
+    fun addMatchToTournament(@Path("id") tournamentId: Long, @Body match: Match): Call<Match>
 
 }
 

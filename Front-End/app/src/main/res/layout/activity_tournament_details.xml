@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#3C3C3C"
     android:padding="16dp">
 
@@ -9,6 +10,18 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <!-- 🔙 Bouton précédent -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="start"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Retour"
+            app:tint="#FFFFFF"
+            android:layout_marginBottom="12dp"/>
 
         <TextView
             android:id="@+id/textTournamentTitle"
@@ -19,6 +32,16 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnAddMatchToTournament"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ajouter un match"
+            android:backgroundTint="#dc161f"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"/>
 
         <LinearLayout
             android:id="@+id/layoutBrackets"

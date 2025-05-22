@@ -10,10 +10,12 @@ import com.example.e_sports_tournament_management_system.network.ApiService
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 import android.util.Log
+import com.example.e_sports_tournament_management_system.model.Tournament
 
 
 class AddMatchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val tournamentId = intent.getLongExtra("TOURNAMENT_ID", -1)
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
             Log.e("CrashHandler", "💥 Exception : ${throwable.message}", throwable)
         }
@@ -59,8 +61,10 @@ class AddMatchActivity : AppCompatActivity() {
                     teamAScore = scoreA,
                     teamBScore = scoreB,
                     winner = Team(name = winner, country = "", logoUrl = null)
-                )
+                ),
+                tournament = Tournament(id = tournamentId, name = "", location = "", startDate = "", endDate = "")
             )
+
 
             apiService.addMatch(newMatch).enqueue(object : Callback<Match> {
                 override fun onResponse(call: Call<Match>, response: Response<Match>) {

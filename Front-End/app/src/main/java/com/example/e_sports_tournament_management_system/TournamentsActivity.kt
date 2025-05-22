@@ -54,13 +54,37 @@ class TournamentsActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Tournament>>, response: Response<List<Tournament>>) {
                 if (response.isSuccessful) {
                     val tournaments = response.body() ?: emptyList()
-                    recyclerView.adapter = TournamentAdapter(tournaments,
-                        onClick = { tournament ->
+                    recyclerView.adapter = TournamentAdapter(
+                        tournaments,
+                        onDetails = { tournament ->
                             val intent = Intent(this@TournamentsActivity, TournamentDetailsActivity::class.java)
                             intent.putExtra("TOURNAMENT_ID", tournament.id)
                             startActivity(intent)
+                        },
+                        onEdit = { tournament ->
+                            val intent = Intent(this@TournamentsActivity, EditTournamentActivity::class.java)
+                            intent.putExtra("TOURNAMENT_ID", tournament.id)
+                            intent.putExtra("TOURNAMENT_NAME", tournament.name)
+                            intent.putExtra("TOURNAMENT_LOCATION", tournament.location)
+                            intent.putExtra("TOURNAMENT_START_DATE", tournament.startDate)
+                            intent.putExtra("TOURNAMENT_END_DATE", tournament.endDate)
+                            startActivity(intent)
+                        },
+                        onDelete = { tournament ->
+                            apiService.deleteTournament(tournament.id!!).enqueue(object : Callback<Void> {
+                                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                    Toast.makeText(this@TournamentsActivity, "Tournoi supprimé", Toast.LENGTH_SHORT).show()
+                                    fetchTournaments()
+                                }
+
+                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                                    Toast.makeText(this@TournamentsActivity, "Erreur suppression", Toast.LENGTH_SHORT).show()
+                                }
+                            })
                         }
                     )
+
+
                 }
             }
 

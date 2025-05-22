@@ -7,5 +7,5 @@ data class Tournament(
     val startDate: String,
     val endDate: String,
     val game: Game? = null,
-    val matches: List<Match>? = null
+    val matches: List<Match>? = emptyList()
 )
