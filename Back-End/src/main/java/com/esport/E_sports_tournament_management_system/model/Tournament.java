@@ -1,5 +1,7 @@
 package com.esport.E_sports_tournament_management_system.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,16 +20,27 @@ public class Tournament {
     @JoinColumn(name = "game_id")
 
 
+
     private Game game;
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
+
     private LocalDate startDate;
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+
     private LocalDate endDate;
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private Double prizePool;
     private String imageUrl;
+    private String location;
 
 
 
-    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Match> matches = new ArrayList<>();
 
     @ManyToOne
@@ -38,11 +51,12 @@ public class Tournament {
     // Constructors
     public Tournament() {}
 
-    public Tournament(String name, LocalDate startDate, LocalDate endDate, Double prizePool) {
+    public Tournament(String name, LocalDate startDate, LocalDate endDate, Double prizePool,String location) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.prizePool = prizePool;
+        this.location = location;
 
     }
 
@@ -70,6 +84,8 @@ public class Tournament {
     public Double getPrizePool() {
         return prizePool;
     }
+
+    public String getLocation() { return location; }
 
     public String getImageUrl() {
         return imageUrl;
@@ -106,6 +122,8 @@ public class Tournament {
     public void setPrizePool(Double prizePool) {
         this.prizePool = prizePool;
     }
+
+    public void setLocation(String location) { this.location = location; }
 
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 

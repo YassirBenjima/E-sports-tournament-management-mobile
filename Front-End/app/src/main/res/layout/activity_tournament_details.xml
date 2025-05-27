@@ -47,7 +47,11 @@
             android:id="@+id/layoutBrackets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:divider="?android:attr/dividerHorizontal"
+            android:showDividers="middle" />
+
 
     </LinearLayout>
 </ScrollView>

@@ -62,7 +62,7 @@ class AddMatchActivity : AppCompatActivity() {
                     teamBScore = scoreB,
                     winner = Team(name = winner, country = "", logoUrl = null)
                 ),
-                tournament = Tournament(id = tournamentId, name = "", location = "", startDate = "", endDate = "")
+                tournament = Tournament(id = tournamentId, name = "", location = "", prizePool = 0.0, startDate = "", endDate = "")
             )
 
 

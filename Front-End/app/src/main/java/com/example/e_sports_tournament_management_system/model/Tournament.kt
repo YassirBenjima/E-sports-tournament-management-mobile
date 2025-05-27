@@ -6,6 +6,7 @@ data class Tournament(
     val location: String,
     val startDate: String,
     val endDate: String,
+    val prizePool: Double,
     val game: Game? = null,
     val matches: List<Match>? = emptyList()
 )

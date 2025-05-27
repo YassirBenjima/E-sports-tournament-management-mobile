@@ -14,6 +14,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.POST
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -126,8 +127,10 @@ interface ApiService {
     @GET("/api/tournaments/{id}")
     fun getTournamentById(@Path("id") id: Long): Call<Tournament>
 
+    @Headers("Content-Type: application/json")
     @POST("/api/tournaments")
     fun addTournament(@Body tournament: Tournament): Call<Tournament>
+
 
     @DELETE("/api/tournaments/{id}")
     fun deleteTournament(@Path("id") id: Long): Call<Void>

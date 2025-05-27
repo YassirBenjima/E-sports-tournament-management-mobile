@@ -1,5 +1,6 @@
 package com.esport.E_sports_tournament_management_system.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,9 +15,10 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "tournament_id", nullable = true)
+    @JsonBackReference
     private Tournament tournament;
 
     @ManyToOne

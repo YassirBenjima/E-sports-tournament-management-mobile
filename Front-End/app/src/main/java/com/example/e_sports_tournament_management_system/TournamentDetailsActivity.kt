@@ -74,18 +74,69 @@ class TournamentDetailsActivity : AppCompatActivity() {
             }
         })
     }
-
     private fun displayBrackets(matches: List<Match>) {
         layoutBrackets.removeAllViews()
-        matches.forEachIndexed { index, match ->
-            val view = TextView(this)
-            val team1 = match.team1?.name ?: "Équipe A"
-            val team2 = match.team2?.name ?: "Équipe B"
-            val score = if (match.result != null) "${match.result.teamAScore} - ${match.result.teamBScore}" else "-"
-            val winner = match.result?.winner?.name ?: "Indéfini"
-            view.text = "Match ${index + 1}: $team1 vs $team2 | Score: $score | 🏆 $winner"
-            view.setTextColor(resources.getColor(android.R.color.white))
-            layoutBrackets.addView(view)
+
+        fun addSectionTitle(title: String) {
+            val titleView = TextView(this).apply {
+                text = "🔻 $title"
+                setTextColor(resources.getColor(android.R.color.holo_red_light))
+                setTypeface(null, android.graphics.Typeface.BOLD)
+                textSize = 18f
+                setPadding(0, 16, 0, 8)
+            }
+            layoutBrackets.addView(titleView)
+        }
+
+        val matchCount = matches.size
+
+        if (matchCount >= 1) {
+            addSectionTitle("Quarts de finale")
+            matches.take(4).forEachIndexed { index, match ->
+                layoutBrackets.addView(createMatchView(index + 1, match))
+            }
+        }
+
+        if (matchCount >= 5) {
+            addSectionTitle("Demi-finales")
+            matches.drop(4).take(2).forEachIndexed { index, match ->
+                layoutBrackets.addView(createMatchView(index + 5, match))
+            }
+        }
+
+        if (matchCount >= 7) {
+            addSectionTitle("Finale")
+            layoutBrackets.addView(createMatchView(7, matches[6]))
+
+            val winnerName = matches[6].result?.winner?.name ?: "Inconnu"
+            val winnerView = TextView(this).apply {
+                text = "🏆 Vainqueur du tournoi : $winnerName 🏆"
+                setTextColor(resources.getColor(android.R.color.holo_orange_light))
+                setTypeface(null, android.graphics.Typeface.BOLD)
+                textSize = 20f
+                setPadding(0, 16, 0, 16)
+            }
+            layoutBrackets.addView(winnerView)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        fetchTournamentDetails()
+    }
+
+
+    private fun createMatchView(index: Int, match: Match): TextView {
+        val team1 = match.team1?.name ?: "Équipe A"
+        val team2 = match.team2?.name ?: "Équipe B"
+        val score = if (match.result != null) "${match.result.teamAScore} - ${match.result.teamBScore}" else "-"
+        val winner = match.result?.winner?.name ?: "Indéfini"
+
+        return TextView(this).apply {
+            text = "Match $index: $team1 vs $team2 | Score: $score | 🏆 $winner"
+            setTextColor(resources.getColor(android.R.color.white))
+            setPadding(8, 4, 8, 4)
+        }
+    }
+
 }

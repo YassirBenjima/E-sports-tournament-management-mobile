@@ -37,6 +37,24 @@
             android:layout_marginBottom="12dp"
             android:textColor="@color/black"
             android:background="@drawable/edit_text_background" />
+        <!-- Prize Pool -->
+        <EditText
+            android:id="@+id/editTextPrizePool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cagnotte (Prize Pool)"
+            android:layout_marginBottom="12dp"
+            android:inputType="numberDecimal"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text_background" />
+
+        <!-- Game Selection -->
+        <Spinner
+            android:id="@+id/spinnerGame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/edit_text_background" />
 
         <EditText
             android:id="@+id/editTextStartDate"

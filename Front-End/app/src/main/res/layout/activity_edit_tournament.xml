@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Back Button -->
         <ImageButton
             android:id="@+id/btnBackDashboard"
             android:layout_width="36dp"
@@ -20,6 +21,7 @@
             android:contentDescription="Retour"
             app:tint="#FFFFFF" />
 
+        <!-- Tournament Name -->
         <EditText
             android:id="@+id/editTextTournamentName"
             android:layout_width="match_parent"
@@ -29,6 +31,7 @@
             android:textColor="@color/black"
             android:background="@drawable/edit_text_background" />
 
+        <!-- Location -->
         <EditText
             android:id="@+id/editTextLocation"
             android:layout_width="match_parent"
@@ -38,6 +41,7 @@
             android:textColor="@color/black"
             android:background="@drawable/edit_text_background" />
 
+        <!-- Start Date -->
         <EditText
             android:id="@+id/editTextStartDate"
             android:layout_width="match_parent"
@@ -47,15 +51,36 @@
             android:textColor="@color/black"
             android:background="@drawable/edit_text_background" />
 
+        <!-- End Date -->
         <EditText
             android:id="@+id/editTextEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Date de fin (yyyy-MM-dd)"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:textColor="@color/black"
             android:background="@drawable/edit_text_background" />
 
+        <!-- Prize Pool -->
+        <EditText
+            android:id="@+id/editTextPrizePool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Prize Pool (DH)"
+            android:inputType="number"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text_background" />
+
+        <!-- Spinner for Game -->
+        <Spinner
+            android:id="@+id/spinnerGames"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_background" />
+
+        <!-- Submit Button -->
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"

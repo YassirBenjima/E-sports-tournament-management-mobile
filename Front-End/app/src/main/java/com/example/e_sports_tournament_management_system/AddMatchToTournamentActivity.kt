@@ -52,20 +52,24 @@ class AddMatchToTournamentActivity : AppCompatActivity() {
             val winner = if (scoreA > scoreB) team1 else team2
 
             val result = MatchResult(teamAScore = scoreA, teamBScore = scoreB, winner = winner)
-            val match = Match(team1 = team1, team2 = team2, result = result)
+            val match = Match(
+                team1 = team1,
+                team2 = team2,
+                result = result,
+                tournament = Tournament(id = tournamentId, name = "", location = "" , prizePool = 0.00, startDate = "", endDate = "")
+            )
+
 
             apiService.addMatchToTournament(tournamentId, match).enqueue(object : Callback<Match> {
                 override fun onResponse(call: Call<Match>, response: Response<Match>) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@AddMatchToTournamentActivity, "Match ajouté", Toast.LENGTH_SHORT).show()
-                        val intent = Intent()
-                        intent.putExtra("REFRESH", true)
-                        setResult(Activity.RESULT_OK, intent)
                         finish()
                     } else {
                         Toast.makeText(this@AddMatchToTournamentActivity, "Erreur : ${response.message()}", Toast.LENGTH_SHORT).show()
                     }
                 }
+
 
                 override fun onFailure(call: Call<Match>, t: Throwable) {
                     Toast.makeText(this@AddMatchToTournamentActivity, "Échec : ${t.message}", Toast.LENGTH_SHORT).show()

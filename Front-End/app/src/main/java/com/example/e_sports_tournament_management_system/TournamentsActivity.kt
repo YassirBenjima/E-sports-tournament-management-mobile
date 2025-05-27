@@ -68,8 +68,11 @@ class TournamentsActivity : AppCompatActivity() {
                             intent.putExtra("TOURNAMENT_LOCATION", tournament.location)
                             intent.putExtra("TOURNAMENT_START_DATE", tournament.startDate)
                             intent.putExtra("TOURNAMENT_END_DATE", tournament.endDate)
+                            intent.putExtra("TOURNAMENT_PRIZE", tournament.prizePool)
+                            intent.putExtra("TOURNAMENT_GAME_ID", tournament.game?.id)
                             startActivity(intent)
-                        },
+                        }
+                        ,
                         onDelete = { tournament ->
                             apiService.deleteTournament(tournament.id!!).enqueue(object : Callback<Void> {
                                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
