@@ -22,24 +22,18 @@
             app:tint="#FFFFFF" />
 
         <!-- Team 1 -->
-        <EditText
-            android:id="@+id/editTextTeam1"
+        <Spinner
+            android:id="@+id/spinnerTeam1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Équipe 1"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/edit_text_background"
-            android:textColor="@color/black" />
+            android:layout_marginBottom="12dp" />
 
         <!-- Team 2 -->
-        <EditText
-            android:id="@+id/editTextTeam2"
+        <Spinner
+            android:id="@+id/spinnerTeam2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Équipe 2"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/edit_text_background"
-            android:textColor="@color/black" />
+            android:layout_marginBottom="12dp" />
 
         <!-- Score Équipe 1 -->
         <EditText

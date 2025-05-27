@@ -33,23 +33,18 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextMatchTeam1"
+    <Spinner
+        android:id="@+id/spinnerMatchTeam1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Équipe 1"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/edit_text_background"
-        android:textColor="@color/black" />
-
-    <EditText
-        android:id="@+id/editTextMatchTeam2"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/edit_text_background" />
+    <Spinner
+        android:id="@+id/spinnerMatchTeam2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Équipe 2"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/edit_text_background"
-        android:textColor="@color/black" />
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/edit_text_background" />
 
     <EditText
         android:id="@+id/editTextScoreA"
@@ -71,14 +66,13 @@
         android:inputType="number"
         android:textColor="@color/black" />
 
-    <EditText
-        android:id="@+id/editTextWinnerName"
+    <Spinner
+        android:id="@+id/spinnerWinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nom du gagnant"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/edit_text_background"
-        android:textColor="@color/black" />
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/edit_text_background" />
+
 
     <Button
         android:id="@+id/btnSubmit"

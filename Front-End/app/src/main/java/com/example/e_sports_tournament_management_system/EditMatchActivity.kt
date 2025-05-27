@@ -3,9 +3,7 @@ package com.example.e_sports_tournament_management_system
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.e_sports_tournament_management_system.model.Match
-import com.example.e_sports_tournament_management_system.model.MatchResult
-import com.example.e_sports_tournament_management_system.model.Team
+import com.example.e_sports_tournament_management_system.model.*
 import com.example.e_sports_tournament_management_system.network.ApiService
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,20 +11,23 @@ import retrofit2.converter.gson.GsonConverterFactory
 class EditMatchActivity : AppCompatActivity() {
 
     private var matchId: Long = -1L
+    private lateinit var spinnerTeam1: Spinner
+    private lateinit var spinnerTeam2: Spinner
+    private lateinit var spinnerWinner: Spinner
+    private var teams: List<Team> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_match)
 
-        val team1Field = findViewById<EditText>(R.id.editTextMatchTeam1)
-        val team2Field = findViewById<EditText>(R.id.editTextMatchTeam2)
+        spinnerTeam1 = findViewById(R.id.spinnerTeam1)
+        spinnerTeam2 = findViewById(R.id.spinnerTeam2)
+        spinnerWinner = findViewById(R.id.spinnerWinner)
         val scoreAField = findViewById<EditText>(R.id.editTextScoreA)
         val scoreBField = findViewById<EditText>(R.id.editTextScoreB)
-        val winnerField = findViewById<EditText>(R.id.editTextWinnerName)
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
         val btnBack = findViewById<ImageButton>(R.id.btnBackDashboard)
 
-        // Récupération des données transmises via Intent
         matchId = intent.getLongExtra("MATCH_ID", -1)
         val team1Name = intent.getStringExtra("TEAM1_NAME") ?: ""
         val team2Name = intent.getStringExtra("TEAM2_NAME") ?: ""
@@ -34,13 +35,8 @@ class EditMatchActivity : AppCompatActivity() {
         val teamBScore = intent.getIntExtra("TEAM2_SCORE", 0)
         val winnerName = intent.getStringExtra("WINNER_NAME") ?: ""
 
-        // Pré-remplir les champs
-        team1Field.setText(team1Name)
-        team2Field.setText(team2Name)
         scoreAField.setText(teamAScore.toString())
         scoreBField.setText(teamBScore.toString())
-        winnerField.setText(winnerName)
-
         btnSubmit.text = "Mettre à jour"
 
         val retrofit = Retrofit.Builder()
@@ -50,26 +46,28 @@ class EditMatchActivity : AppCompatActivity() {
 
         val apiService = retrofit.create(ApiService::class.java)
 
+        loadTeams(apiService, team1Name, team2Name, winnerName)
+
         btnSubmit.setOnClickListener {
-            val team1 = team1Field.text.toString().trim()
-            val team2 = team2Field.text.toString().trim()
+            val selectedTeam1 = teams.getOrNull(spinnerTeam1.selectedItemPosition)
+            val selectedTeam2 = teams.getOrNull(spinnerTeam2.selectedItemPosition)
+            val selectedWinner = teams.getOrNull(spinnerWinner.selectedItemPosition)
             val scoreA = scoreAField.text.toString().toIntOrNull()
             val scoreB = scoreBField.text.toString().toIntOrNull()
-            val winner = winnerField.text.toString().trim()
 
-            if (team1.isEmpty() || team2.isEmpty() || scoreA == null || scoreB == null || winner.isEmpty()) {
-                Toast.makeText(this, "Tous les champs sont requis", Toast.LENGTH_SHORT).show()
+            if (selectedTeam1 == null || selectedTeam2 == null || selectedWinner == null || scoreA == null || scoreB == null) {
+                Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val updatedMatch = Match(
                 id = matchId,
-                team1 = Team(name = team1, country = "", logoUrl = null),
-                team2 = Team(name = team2, country = "", logoUrl = null),
+                team1 = selectedTeam1,
+                team2 = selectedTeam2,
                 result = MatchResult(
                     teamAScore = scoreA,
                     teamBScore = scoreB,
-                    winner = Team(name = winner, country = "", logoUrl = null)
+                    winner = selectedWinner
                 )
             )
 
@@ -90,5 +88,31 @@ class EditMatchActivity : AppCompatActivity() {
         }
 
         btnBack.setOnClickListener { finish() }
+    }
+
+    private fun loadTeams(apiService: ApiService, team1Name: String, team2Name: String, winnerName: String) {
+        apiService.getTeams().enqueue(object : Callback<List<Team>> {
+            override fun onResponse(call: Call<List<Team>>, response: Response<List<Team>>) {
+                if (response.isSuccessful) {
+                    teams = response.body() ?: emptyList()
+                    val teamNames = teams.map { it.name }
+
+                    val adapter = ArrayAdapter(this@EditMatchActivity, android.R.layout.simple_spinner_item, teamNames)
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                    spinnerTeam1.adapter = adapter
+                    spinnerTeam2.adapter = adapter
+                    spinnerWinner.adapter = adapter
+
+                    spinnerTeam1.setSelection(teamNames.indexOf(team1Name))
+                    spinnerTeam2.setSelection(teamNames.indexOf(team2Name))
+                    spinnerWinner.setSelection(teamNames.indexOf(winnerName))
+                }
+            }
+
+            override fun onFailure(call: Call<List<Team>>, t: Throwable) {
+                Toast.makeText(this@EditMatchActivity, "Erreur chargement équipes", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
