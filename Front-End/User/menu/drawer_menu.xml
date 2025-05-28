@@ -1,0 +1,39 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:title="@string/nav_home"
+        android:icon="@drawable/ic_home" />
+
+    <item
+        android:id="@+id/nav_teams"
+        android:title="@string/nav_teams"
+        android:icon="@drawable/ic_team" />
+
+    <item
+        android:id="@+id/nav_players"
+        android:title="@string/nav_players"
+        android:icon="@drawable/ic_player" />
+
+    <item
+        android:id="@+id/nav_matches"
+        android:title="@string/nav_matches"
+        android:icon="@drawable/ic_match" />
+    <item
+        android:id="@+id/nav_game"
+        android:title="@string/nav_game"
+        android:icon="@drawable/ic_games" />
+    <item
+        android:id="@+id/nav_tournaments"
+        android:title="@string/nav_tournaments"
+        android:icon="@drawable/ic_tournament" />
+    <!-- SEPARATEUR -->
+    <item android:title=" "/>
+
+
+
+    <!-- Déconnexion tout en bas -->
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Déconnexion" />
+</menu>

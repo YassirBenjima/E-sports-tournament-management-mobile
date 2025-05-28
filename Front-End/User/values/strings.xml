@@ -1,0 +1,24 @@
+<resources>
+    <string name="menu_icon_description">Menu</string>
+    <string name="app_logo_description">Logo application</string>
+    <string name="logo_description">Logo</string>
+    <string name="menu_title">Menu</string>
+    <string name="app_name">esport_game_utilisateur</string>
+    <string name="nav_home">Accueil</string>
+    <string name="nav_teams">Teams</string>
+    <string name="nav_players">Players</string>
+    <string name="nav_matches">Matches</string>
+    <string name="nav_game">Game</string>
+    <string name="nav_tournaments">Tournaments</string>
+    <string name="d_connexion">Déconnexion</string>
+    <string name="email">Email</string>
+    <string name="logo">Logo</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="se_connecter">Se connecter</string>
+    <string name="mot_de_passe_oubli">Mot de passe oublié ?</string>
+    <string name="ou_cr_er_un_compte">Ou créer un compte</string>
+    <string name="full_name">Full Name</string>
+    <string name="i_agree_to_the_terms_and_conditions">I agree to the Terms and Conditions</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="fermer">Fermer</string>
+</resources>
